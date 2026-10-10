@@ -164,7 +164,9 @@ The rest are free.
 
 ## Note before touching the PRs
 
-PRs #4 and #5 both add an ADR-0010. They are screenshot subjects and stay open; merging either would force the other to renumber.
+PRs #7 and #8 both add an ADR-0010. They are screenshot subjects and stay open; merging either would force the other to renumber.
+
+The violating, new-decision and invalid-record PRs were first opened as #3, #4 and #5, and reopened as #6, #7 and #8 after a history rewrite. The screenshots below were taken on the originals, so they show the old numbers; retake them if the numbers matter on screen.
 
 ## Recorded already
 
@@ -179,14 +181,14 @@ PRs #4 and #5 both add an ADR-0010. They are screenshot subjects and stay open; 
 | T7 | `07-queue.gif` / `.mp4` | `adr queue` terminal view: 0009 blocked |
 | T8 | `08-review-accept.gif` / `.mp4` | approve, refused accept, resolve, queue, accept, diff, on a throwaway copy |
 | G1 | `screenshots/pr-2-comment.png` | Compliant PR #2: comment lists 0002 (via path) and 0007 (declared by marker). Copilot's unrelated general review (3 findings) is below it; crop to the adrkit comment |
-| G2 | `screenshots/pr-3-comment.png` | Violating PR #3: 0002 and 0006 governing, the stale-marker claim, collapsed proposal and history |
-| G2b | `screenshots/pr-3-description.png` | PR #3's own description of what it contradicts and what adrkit can and cannot catch |
-| G2c | `screenshots/pr-3-copilot-cites-adr-0002.png` | Copilot's automatic code review on PR #3, citing `docs/adr/0002-…md:32-36` against `a.minor / 100` |
-| G3 | `screenshots/pr-5-checks.png` | Invalid-record PR #5: the governing-decisions run fails, "1 changed ADR record(s) failed validation" |
-| G3b | `screenshots/pr-5-comment.png` | PR #5's comment: `dangling-supersedes` validation error |
+| G2 | `screenshots/pr-3-comment.png` | Violating PR #6: 0002 and 0006 governing, the stale-marker claim, collapsed proposal and history |
+| G2b | `screenshots/pr-3-description.png` | PR #6's own description of what it contradicts and what adrkit can and cannot catch |
+| G2c | `screenshots/pr-3-copilot-cites-adr-0002.png` | Copilot's automatic code review on PR #6, citing `docs/adr/0002-…md:32-36` against `a.minor / 100` |
+| G3 | `screenshots/pr-5-checks.png` | Invalid-record PR #8: the governing-decisions run fails, "1 changed ADR record(s) failed validation" |
+| G3b | `screenshots/pr-5-comment.png` | PR #8's comment: `dangling-supersedes` validation error |
 | G4 | `screenshots/issue-queue.png` | Managed ADR ARB Queue issue with 0010 and 0009 |
 | G5 | `screenshots/readme.png` | README rendering |
-| G6 | `screenshots/pr-4-comment.png` | New-decision PR #4 and its comment |
+| G6 | `screenshots/pr-4-comment.png` | New-decision PR #7 and its comment |
 
 Re-render a tape from the repository root with `vhs docs/demo/tapes/<name>.tape`.
 `06` needs the branch first: `DEMO_PUSH=0 demo/violating-change.sh`, then
@@ -196,7 +198,7 @@ Re-render a tape from the repository root with `vhs docs/demo/tapes/<name>.tape`
 
 Copilot code review ran automatically on all four PRs, because automatic
 review is enabled for the account; that spent premium requests outside the
-demo scripts. On PR #3 it flagged `toMajorUnits` and cited ADR-0002 by file
+demo scripts. On PR #6 it flagged `toMajorUnits` and cited ADR-0002 by file
 and line. It cites the record file, so do not narrate that it read the adrkit
 comment; say that the decision is in the repository and on the PR, and the
 reviewer used it.
