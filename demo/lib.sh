@@ -35,6 +35,10 @@ commit_all() {
 
 publish() {
   local branch="$1" title="$2" body="$3"
+  # DEMO_PR_FOOTER, when set, is appended to the pull request body.
+  if [[ -n "${DEMO_PR_FOOTER:-}" ]]; then
+    body="$body"$'\n\n'"$DEMO_PR_FOOTER"
+  fi
   if [[ "${DEMO_PUSH:-1}" == "0" ]]; then
     echo "DEMO_PUSH=0: left $branch local, not pushed"
     return
