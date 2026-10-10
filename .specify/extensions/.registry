@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "extensions": {
+    "adrkit": {
+      "version": "0.1.4",
+      "source": "local",
+      "manifest_hash": "sha256:21d596759a6a949024f2a8ee0d6450032a0ad85279a0c255aab058eb5538a694",
+      "enabled": true,
+      "priority": 10,
+      "registered_commands": {},
+      "registered_skills": [
+        "speckit-adrkit-context",
+        "speckit-adrkit-check",
+        "speckit-adrkit-draft"
+      ],
+      "installed_at": "2026-10-10T01:17:08.426134+00:00"
+    }
+  }
+}
