@@ -37,7 +37,7 @@ The rest are free.
 
 ## Act 3: the agent in the loop
 
-### C1. `/adr-check` in Copilot CLI (about 1 premium request)
+### C1. `/adr-check` in Copilot CLI (cost unmeasured: one prompt plus a `decision-checker` subagent)
 
 - **Where:** a terminal, `cd ~/github/mbeacom/adrkit-demo && git switch demo/violating-change`, then `copilot`.
 - **Prompt:** `/adr-check`
@@ -162,6 +162,10 @@ The rest are free.
   succeeds after `adr resolve 0009 --objection 1 --by @hubot`.
 - **Length:** use T8 (28 s).
 
+## Note before touching the PRs
+
+PRs #4 and #5 both add an ADR-0010. They are screenshot subjects and stay open; merging either would force the other to renumber.
+
 ## Recorded already
 
 | ID | Asset | Moment |
@@ -174,7 +178,7 @@ The rest are free.
 | T6 | `06-check-violating.gif` / `.mp4` | `adr check` on `demo/violating-change`: governing records listed, exit 0 |
 | T7 | `07-queue.gif` / `.mp4` | `adr queue` terminal view: 0009 blocked |
 | T8 | `08-review-accept.gif` / `.mp4` | approve, refused accept, resolve, queue, accept, diff, on a throwaway copy |
-| G1 | `screenshots/pr-2-comment.png` | Compliant PR #2: comment lists 0002 (via path) and 0007 (declared by marker) |
+| G1 | `screenshots/pr-2-comment.png` | Compliant PR #2: comment lists 0002 (via path) and 0007 (declared by marker). Copilot's unrelated general review (3 findings) is below it; crop to the adrkit comment |
 | G2 | `screenshots/pr-3-comment.png` | Violating PR #3: 0002 and 0006 governing, the stale-marker claim, collapsed proposal and history |
 | G2b | `screenshots/pr-3-description.png` | PR #3's own description of what it contradicts and what adrkit can and cannot catch |
 | G2c | `screenshots/pr-3-copilot-cites-adr-0002.png` | Copilot's automatic code review on PR #3, citing `docs/adr/0002-…md:32-36` against `a.minor / 100` |
