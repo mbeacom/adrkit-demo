@@ -74,7 +74,7 @@ I am proposing ADR-$ID, a per-account rate limit on \`POST /transfers\`. It is \
 
 This is demo PR 3 of 4 for [adrkit](https://github.com/mbeacom/adrkit). Two things to look for:
 
-- The governing-decisions comment validates the changed record and lists it.
+- The governing-decisions check validates the changed record and passes. Its comment lists ADR-0001, which governs \`docs/adr/**\`; it does not list the new proposal itself.
 - The \`ADR ARB queue\` workflow, dispatched on this branch, rewrites the managed **ADR ARB Queue** issue so it lists this proposal next to ADR-0009. The repository has one managed issue; it shows whichever ref ran last.
 
 Reproduce with \`demo/new-decision.sh\`.
