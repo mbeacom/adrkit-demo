@@ -166,7 +166,7 @@ The rest are free.
 
 PRs #7 and #8 both add an ADR-0010. They are screenshot subjects and stay open; merging either would force the other to renumber.
 
-The violating, new-decision and invalid-record PRs were first opened as #3, #4 and #5, and reopened as #6, #7 and #8 after a history rewrite. The screenshots below were taken on the originals, so they show the old numbers; retake them if the numbers matter on screen.
+The violating, new-decision and invalid-record PRs were first opened as #3, #4 and #5, and reopened as #6, #7 and #8 after a history rewrite. The screenshots below were retaken on the reopened PRs.
 
 ## Recorded already
 
@@ -189,6 +189,7 @@ The violating, new-decision and invalid-record PRs were first opened as #3, #4 a
 | G4 | `screenshots/issue-queue.png` | Managed ADR ARB Queue issue with 0010 and 0009 |
 | G5 | `screenshots/readme.png` | README rendering |
 | G6 | `screenshots/pr-4-comment.png` | New-decision PR #7 and its comment |
+| G6b | `screenshots/pr-4-description.png` | New-decision PR #7's description |
 
 Re-render a tape from the repository root with `vhs docs/demo/tapes/<name>.tape`.
 `06` needs the branch first: `DEMO_PUSH=0 demo/violating-change.sh`, then
