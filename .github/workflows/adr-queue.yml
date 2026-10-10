@@ -29,4 +29,7 @@ jobs:
         with:
           dir: docs/adr
           issue-title: ADR ARB Queue
-      - run: echo "Managed queue issue is #${{ steps.queue.outputs.issue-number }}"
+      - name: Report the managed issue
+        env:
+          ISSUE: ${{ steps.queue.outputs.issue-number }}
+        run: echo "Managed queue issue is number $ISSUE"
