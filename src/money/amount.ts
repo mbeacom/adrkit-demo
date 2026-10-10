@@ -53,3 +53,13 @@ export function formatDecimal(a: Amount): string {
   const cents = String(abs % 100).padStart(2, '0');
   return `${sign}${whole}.${cents}`;
 }
+
+/** Convenience for the dashboard: an amount in major units (dollars). */
+export function toMajorUnits(a: Amount): number {
+  return a.minor / 100;
+}
+
+/** Accept a JavaScript number of dollars, e.g. 19.99. */
+export function fromMajorUnits(value: number, currency: Currency): Amount {
+  return amount(Math.round(value * 100), currency);
+}
