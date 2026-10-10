@@ -18,3 +18,10 @@ test('rejects fractional minor units and mixed currencies', () => {
   assert.throws(() => amount(1.5, 'USD'), RangeError);
   assert.throws(() => add(amount(1, 'USD'), amount(1, 'EUR')), TypeError);
 });
+
+test('allocate splits 10.00 three ways without losing a cent', async () => {
+  const { allocate } = await import('../src/money/amount.ts');
+  const shares = allocate(parseDecimal('10.00', 'USD'), 3).map((a) => a.minor);
+  assert.deepEqual(shares, [334, 333, 333]);
+  assert.equal(shares.reduce((x, y) => x + y, 0), 1000);
+});

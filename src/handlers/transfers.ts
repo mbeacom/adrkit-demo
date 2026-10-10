@@ -22,6 +22,8 @@ export function createTransfer(req: TransferRequest, ledger: Ledger, keys: Idemp
     return { status: 422, body: { error: 'expected { from, to, amount: "12.34", currency: "USD" | "EUR" }' } };
   }
 
+  if (from === to) return { status: 422, body: { error: "from and to must differ" } };
+
   let value;
   try {
     value = parseDecimal(amount, currency);

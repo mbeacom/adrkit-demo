@@ -53,3 +53,18 @@ export function formatDecimal(a: Amount): string {
   const cents = String(abs % 100).padStart(2, '0');
   return `${sign}${whole}.${cents}`;
 }
+
+/**
+ * Split an amount into `parts` shares that sum exactly to the original.
+ * The remainder is spread one minor unit at a time, so no cent is lost.
+ */
+export function allocate(total: Amount, parts: number): Amount[] {
+  if (!Number.isSafeInteger(parts) || parts <= 0) throw new RangeError('parts must be a positive integer');
+  const base = Math.trunc(total.minor / parts);
+  let remainder = total.minor - base * parts;
+  return Array.from({ length: parts }, () => {
+    const step = remainder > 0 ? 1 : remainder < 0 ? -1 : 0;
+    remainder -= step;
+    return amount(base + step, total.currency);
+  });
+}
