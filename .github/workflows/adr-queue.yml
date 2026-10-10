@@ -1,0 +1,32 @@
+# Keep one managed issue ("ADR ARB Queue") in sync with the proposed records.
+# The queue Action is nested, so it is pinned by path at the same immutable
+# release tag as the governing-decisions Action.
+#
+# There is exactly one managed issue per repository. It shows the corpus of
+# whichever ref ran last: a push to main, the weekly schedule, or a manual
+# dispatch (demo/new-decision.sh dispatches it on the PR branch to preview).
+name: ADR ARB queue
+
+on:
+  push:
+    branches: [main]
+    paths: ["docs/adr/**"]
+  schedule:
+    - cron: "0 13 * * 1" # Monday 13:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  arb-queue:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: queue
+        uses: mbeacom/adrkit/packages/ci/queue@v0.18.0
+        with:
+          dir: docs/adr
+          issue-title: ADR ARB Queue
+      - run: echo "Managed queue issue is #${{ steps.queue.outputs.issue-number }}"

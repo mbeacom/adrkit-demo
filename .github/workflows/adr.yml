@@ -1,0 +1,19 @@
+# Comment the architecture decisions governing each pull request.
+# Pinned to an immutable adrkit release tag, never the moving v0 tag.
+name: ADR governing decisions
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  governing-decisions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: mbeacom/adrkit@v0.18.0
+        with:
+          dir: docs/adr
