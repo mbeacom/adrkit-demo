@@ -8,5 +8,6 @@ import type { Amount } from '../money/amount.ts';
 export interface BalanceRow {
   account: string;
   balance: Amount;
+  balanceDollars: number;
   updatedAt: string;
 }
