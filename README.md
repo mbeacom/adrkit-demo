@@ -115,7 +115,7 @@ and `speckit-plan` offers the optional check after it writes a plan.
 
 The recording plan for these segments is in
 [`docs/demo/SHOTLIST.md`](docs/demo/SHOTLIST.md), and the narration is in
-[`docs/demo/SCRIPT.md`](docs/demo/SCRIPT.md). Terminal recordings are in
+[`docs/demo/SCRIPT.md`](docs/demo/SCRIPT.md). Terminal recordings and GitHub screenshots are in
 [`docs/demo/`](docs/demo/).
 
 ## What adrkit does not do

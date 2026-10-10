@@ -174,20 +174,25 @@ The rest are free.
 | T6 | `06-check-violating.gif` / `.mp4` | `adr check` on `demo/violating-change`: governing records listed, exit 0 |
 | T7 | `07-queue.gif` / `.mp4` | `adr queue` terminal view: 0009 blocked |
 | T8 | `08-review-accept.gif` / `.mp4` | approve, refused accept, resolve, queue, accept, diff, on a throwaway copy |
-| G1 | `screenshots/pr-2-comment.png` | Compliant PR: comment lists 0002 (via path) and 0007 (declared by marker); checks pass |
-| G2 | `screenshots/pr-3-comment.png` | Violating PR: 0002 governing, stale marker claim, checks pass |
-| G3 | `screenshots/pr-5-checks.png` | Invalid record PR: validation error in the comment, both checks fail |
-| G4 | `screenshots/issue-queue.png` | Managed ADR ARB Queue issue with 0009 and 0010 |
+| G1 | `screenshots/pr-2-comment.png` | Compliant PR #2: comment lists 0002 (via path) and 0007 (declared by marker) |
+| G2 | `screenshots/pr-3-comment.png` | Violating PR #3: 0002 and 0006 governing, the stale-marker claim, collapsed proposal and history |
+| G2b | `screenshots/pr-3-description.png` | PR #3's own description of what it contradicts and what adrkit can and cannot catch |
+| G2c | `screenshots/pr-3-copilot-cites-adr-0002.png` | Copilot's automatic code review on PR #3, citing `docs/adr/0002-…md:32-36` against `a.minor / 100` |
+| G3 | `screenshots/pr-5-checks.png` | Invalid-record PR #5: the governing-decisions run fails, "1 changed ADR record(s) failed validation" |
+| G3b | `screenshots/pr-5-comment.png` | PR #5's comment: `dangling-supersedes` validation error |
+| G4 | `screenshots/issue-queue.png` | Managed ADR ARB Queue issue with 0010 and 0009 |
 | G5 | `screenshots/readme.png` | README rendering |
-| G6 | `screenshots/pr-4-comment.png` | New-decision PR comment |
+| G6 | `screenshots/pr-4-comment.png` | New-decision PR #4 and its comment |
 
 Re-render a tape from the repository root with `vhs docs/demo/tapes/<name>.tape`.
 `06` needs the branch first: `DEMO_PUSH=0 demo/violating-change.sh`, then
 `git switch main`.
 
-### G7. Copilot code review on the violating PR (premium request; maintainer's call)
+### G7. Copilot code review on the violating PR (already captured as G2c)
 
-- **Where:** PR #3, **Reviewers → Copilot**.
-- **Expect:** Copilot's review sits next to the adrkit comment that names
-  ADR-0002. Whether Copilot reads that comment is up to Copilot; do not narrate
-  that it does unless the review actually cites it.
+Copilot code review ran automatically on all four PRs, because automatic
+review is enabled for the account; that spent premium requests outside the
+demo scripts. On PR #3 it flagged `toMajorUnits` and cited ADR-0002 by file
+and line. It cites the record file, so do not narrate that it read the adrkit
+comment; say that the decision is in the repository and on the PR, and the
+reviewer used it.

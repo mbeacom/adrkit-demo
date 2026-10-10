@@ -36,8 +36,9 @@ Times are targets.
 | Time | Asset | Narration |
 |---|---|---|
 | 3:45 | G1 | On every pull request, the governing-decisions Action comments which decisions govern the change: money by its path, idempotency by the marker in the handler. It is pinned to an immutable release, uses only the default token, and approves nothing. |
-| 4:05 | G2, T6 | Now the honest part. This PR adds float math, which contradicts the money decision, and the checks pass. adrkit does not read code for meaning. What it does is put the money decision on the PR, in front of the reviewer and Copilot's reviewer, with the stale marker flagged alongside. Locally, `adr check` says the same thing and exits 0. |
-| 4:35 | G3 | What does fail is a broken record. This PR adds an accepted ADR that supersedes one that does not exist. The Action fails the job, because a record changed by the PR has an error. |
+| 4:05 | G2, T6 | Now the honest part. This PR adds float math, which contradicts the money decision, and the checks pass. adrkit does not read code for meaning. What it does is put the money decision on the PR, in front of the reviewer, with the stale marker flagged alongside. Locally, `adr check` says the same thing and exits 0. |
+| 4:25 | G2c | And because the decision is a file in the repository, Copilot's code review found it too: it flagged the float conversion and cited ADR-0002 by line. That judgment is Copilot's, not adrkit's. |
+| 4:40 | G3, G3b | What does fail is a broken record. This PR adds an accepted ADR that supersedes one that does not exist. The Action fails the job, because a record changed by the PR has an error. |
 
 ## Act 5: architecture review (5:00–6:15)
 
