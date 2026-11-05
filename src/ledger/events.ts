@@ -27,6 +27,13 @@ export class Ledger {
       .reduce((sum, p) => add(sum, p.amount), amount(0, currency));
   }
 
+  /** Fix a mistyped posting in place so balances read correctly. */
+  correct(seq: number, value: Amount): void {
+    const index = this.#postings.findIndex((p) => p.seq === seq);
+    if (index < 0) throw new RangeError(`no posting ${seq}`);
+    this.#postings[index] = Object.freeze({ ...this.#postings[index], amount: value });
+  }
+
   postings(): readonly Posting[] {
     return [...this.#postings];
   }
