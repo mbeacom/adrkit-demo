@@ -19,8 +19,12 @@ export class IdempotencyStore {
   }
 }
 
-export function readIdempotencyKey(headers: Record<string, string | string[] | undefined>): string | undefined {
-  const raw = headers['idempotency-key'];
+export function readIdempotencyKey(
+  headers: Record<string, string | string[] | undefined>,
+  query: Record<string, string | undefined> = {},
+): string | undefined {
+  // Some clients cannot set custom headers; accept the key as a query parameter too.
+  const raw = headers['idempotency-key'] ?? query['idempotency_key'];
   const key = Array.isArray(raw) ? raw[0] : raw;
   return key && key.trim().length > 0 ? key.trim() : undefined;
 }
