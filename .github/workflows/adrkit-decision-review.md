@@ -1,7 +1,7 @@
 ---
 description: Advisory, staged review of a pull request against the adrkit architecture decision records that govern its changed files.
 intent: Tell reviewers, with cited evidence, whether a change is consistent with the recorded decisions that govern it, without ever blocking a merge.
-# Never pull_request_target; no `forks:` key, so fork PRs get no review (ADR-0060 clause 8).
+# Never pull_request_target; no `forks:` key, so fork PRs get no review (ADR-0061 clause 8).
 on:
   pull_request:
     types: [opened, synchronize, reopened]
@@ -65,6 +65,27 @@ on:
           } >> "$GITHUB_STEP_SUMMARY"
         else
           echo "adrkit gate: $count governing decision(s); governs=$governs" >> "$GITHUB_STEP_SUMMARY"
+          # ADR-0061 clause 6: a completed check can still be partial. Key on
+          # rule ids, never severity; governs is unchanged, the gap is shown.
+          if [ -s "$report" ]; then
+            if inert=$(jq -r '[.findings[]? | select(.rule == "affects-unresolvable") | .id // empty] | unique | join(", ")' "$report") \
+              && caps=$(jq -r '[.findings[]? | select(.rule == "marker-scan-capped" or .rule == "marker-declarations-capped") | .rule] | unique | join(", ")' "$report"); then
+              :
+            else
+              inert="(findings unreadable)" caps="(findings unreadable)"
+            fi
+            if [ -n "$inert" ] || [ -n "$caps" ]; then
+              {
+                echo ""
+                echo "### adrkit decision review: partial"
+                echo ""
+                echo "The check completed but could not resolve every input, so a decision may govern this change without appearing above."
+                echo ""
+                echo "- Records with inert matchers (affects-unresolvable): ${inert:-none}"
+                echo "- Marker caps reached: ${caps:-none}"
+              } >> "$GITHUB_STEP_SUMMARY"
+            fi
+          fi
         fi
         echo "governs=$governs" >> "$GITHUB_OUTPUT"
 
@@ -89,10 +110,9 @@ permissions:
   contents: read
   pull-requests: read
 
-# One decision-checker judgment per governing record. AGENTS.md records about
-# 0.16 credits for a one-record Copilot review; 50 leaves wide headroom for a
-# several-record PR while capping a runaway at 5% of the 1000 default.
-max-ai-credits: 50
+# ADR-0061 clause 7: the first staged run's governed PRs cost 7.52-14.83
+# credits (median 8.11), so 30 caps a runaway at about 2x the worst observed.
+max-ai-credits: 30
 
 safe-outputs:
   staged: true
@@ -131,7 +151,7 @@ safe-outputs:
           with:
             script: |
               const fs = require('fs');
-              // Hard-coded: no input can change the name or the conclusion (ADR-0060 clause 4).
+              // Hard-coded: no input can change the name or the conclusion (ADR-0061 clause 4).
               const NAME = 'adrkit decisions (advisory)';
               const CONCLUSION = 'neutral';
               const done = (status, url) => {
@@ -183,22 +203,25 @@ Your output is advice for a human; it never blocks a merge.
 - `/tmp/gh-aw/agent/check-meta.json` carries `lintExitCode`, `diffExitCode`,
   and `checkExitCode`. The review can proceed only when the first two are `0`
   and the third is `0` or `1`.
-- The `adrkit` MCP server (read-only) and the `adr` CLI on `PATH` may be used to
-  read records and explain paths. Use only read-only commands.
+- The `adr` CLI on `PATH` may be used to read records and explain paths
+  (`adr explain <path>`). Use only read-only commands.
 - Use `git diff ${{ github.event.pull_request.base.sha }}...HEAD -- <path>` to
   read the change.
 
 ## What to judge
 
-For each entry in `governing` (keyed by `recordId`), read that ADR under
-`docs/adr/` and the parts of the diff it governs, then decide exactly one of:
+For each entry in `governing` (keyed by `recordId`), find its file first:
+run `ls docs/adr/<recordId>-*.md` and use the one path it prints. Read that
+file and the parts of the diff it governs, then decide exactly one of:
 
 - `consistent`: the change follows the decision.
 - `conflicts`: the change contradicts a specific clause of the decision.
 - `unclear`: the evidence does not settle it.
 
 Every judgment cites the record id, the ADR file and line of the clause relied
-on, and the changed file and line in the diff.
+on, and the changed file and line in the diff. Cite the ADR by the real path
+`ls` printed, as `docs/adr/0002-<rest-of-name>.md:35`; never write a glob
+such as `docs/adr/0002-*.md` in a citation.
 
 Entries under `history` (superseded, rejected, deprecated) and
 `activeProposals` are context only. Never judge them.

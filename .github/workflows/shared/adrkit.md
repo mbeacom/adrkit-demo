@@ -1,19 +1,4 @@
 ---
-mcp-servers:
-  adrkit:
-    container: "ghcr.io/mbeacom/adrkit@sha256:16a713a4789356d1e37ffd2c6894ed82cd657ec3c3d8aed1371a9eda86e82b68"
-    entrypointArgs: ["mcp"]
-    args: ["--read-only", "--network", "none", "-w", "/workspace"]
-    mounts: ["${{ github.workspace }}:/workspace:ro"]
-    allowed:
-      - get_decision
-      - get_decision_context
-      - list_superseded
-      - search_decisions
-
-plugins:
-  - mbeacom/adrkit/packages/adapters/agent-plugin@v0.20.0
-
 network:
   allowed: []
 
@@ -54,20 +39,18 @@ steps:
 ---
 
 <!--
-adrkit shared component for GitHub Agentic Workflows (spike for ADR-0060).
+adrkit shared component for GitHub Agentic Workflows (spike for ADR-0061).
 Import only; it declares no `on:`.
 
-What it gives the agent (ADR-0060 clause 3):
-- `adrkit` MCP server: the published OCI image, pinned by the v0.20.0 OCI
-  index digest (label org.opencontainers.image.version = 0.20.0), run
-  read-only with no network and the workspace mounted :ro. Only the four
-  read-only tools are allowed; the server exposes no others.
-- The adrkit agent plugin (skills and the decision-checker agent) at tag
-  v0.20.0, which the compiler pins to a commit SHA.
-- The `adr` CLI (@adrkit/cli 0.20.0, exact) on the host PATH, and
-  /tmp/gh-aw/agent/check.json: `adr check --json` over the files changed
+What it gives the agent (ADR-0061 clause 3, default capability set):
+- The `adr` CLI (@adrkit/cli 0.20.0, exact) on the host PATH.
+- /tmp/gh-aw/agent/check.json: `adr check --json` over the files changed
   between the pull request's base and head, with exit codes in
   /tmp/gh-aw/agent/check-meta.json.
+- A read-only checkout at full depth.
+
+No MCP server and no agent plugin: both are opt-in under clause 3 and off by
+default. The first staged run loaded both and the agent used neither.
 
 Network: `allowed: []`. The CLI install runs as a host step before the agent
 sandbox starts; the agent itself needs no egress beyond what gh-aw adds for the
