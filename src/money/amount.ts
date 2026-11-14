@@ -53,3 +53,14 @@ export function formatDecimal(a: Amount): string {
   const cents = String(abs % 100).padStart(2, '0');
   return `${sign}${whole}.${cents}`;
 }
+
+export function subtract(a: Amount, b: Amount): Amount {
+  sameCurrency(a, b);
+  return amount(a.minor - b.minor, a.currency);
+}
+
+/** Multiply by a whole number, e.g. a quantity. Stays in integer minor units. */
+export function times(a: Amount, factor: number): Amount {
+  if (!Number.isSafeInteger(factor)) throw new RangeError(`factor must be an integer, got ${factor}`);
+  return amount(a.minor * factor, a.currency);
+}
