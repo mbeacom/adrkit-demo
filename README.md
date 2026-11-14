@@ -137,3 +137,5 @@ I want the claims here to match the tools:
 - MCP setup: <https://adrkit.dev/mcp/>
 
 Licensed under Apache-2.0.
+
+This repository is also used to exercise the staged adrkit gh-aw decision review.
