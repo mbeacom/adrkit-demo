@@ -53,3 +53,13 @@ export function formatDecimal(a: Amount): string {
   const cents = String(abs % 100).padStart(2, '0');
   return `${sign}${whole}.${cents}`;
 }
+
+/** Convenience for callers that already hold a dollar figure such as 19.99. */
+export function fromMajor(value: number, currency: Currency): Amount {
+  return { minor: value * 100, currency };
+}
+
+/** The amount in major units, e.g. 1234 -> 12.34, for display and reporting. */
+export function toMajor(a: Amount): number {
+  return a.minor / 100;
+}
