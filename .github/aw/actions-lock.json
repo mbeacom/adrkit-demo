@@ -1,0 +1,14 @@
+{
+  "entries": {
+    "github/gh-aw-actions/setup@v1.0.1": {
+      "repo": "github/gh-aw-actions/setup",
+      "version": "v1.0.1",
+      "sha": "221ba4f4319de6b8e809d1a15528b3ae6a818aa5"
+    },
+    "mbeacom/adrkit/packages/adapters/agent-plugin@v0.20.0": {
+      "repo": "mbeacom/adrkit/packages/adapters/agent-plugin",
+      "version": "v0.20.0",
+      "sha": "d94698cf4142133a166d4af4d33d06a660c2579f"
+    }
+  }
+}
